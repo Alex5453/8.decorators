@@ -20,7 +20,7 @@ function cachingDecoratorNew(func) {
       cache.shift();
     }
 
-    console.log("Вычисляем: " + result);
+    console.log("Из кеша: " + result);
     return result;
   };
 }
