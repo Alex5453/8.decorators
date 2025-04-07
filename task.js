@@ -9,19 +9,22 @@ function cachingDecoratorNew(func) {
     const cachedItem = cache.find(item => item.hash === hash);
 
     if (cachedItem) {
-      return "Из кеша: " + cachedItem.result;
+      console.log("Из кеша: " + cachedItem.result);
+      return cachedItem.result;
     }
 
     const result = func(...args);
     cache.push({ hash, result });
 
     if (cache.length > 5) {
-      cache.shift(); // удаляем самый старый элемент
+      cache.shift();
     }
 
-    return "Вычисляем: " + result;
+    console.log("Вычисляем: " + result);
+    return result;
   };
 }
+
 
 // Задача 2 — debounceDecoratorNew
 function debounceDecoratorNew(func, delay) {
