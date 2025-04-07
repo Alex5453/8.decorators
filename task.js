@@ -2,19 +2,19 @@
 
 // Задача 1 — Кеширующий декоратор на 5 элементов с md5
 function cachingDecoratorNew(func) {
-  const cache = [];
+  let cache = [];
 
-  return function (...args) {
-    const hash = md5(args);
-    const cachedItem = cache.find(item => item.hash === hash);
+  return function(...args) {
+    const hash = args.join(","); // простейший хеш
+    const cached = cache.find(item => item.hash === hash);
 
-    if (cachedItem) {
-      console.log("Из кеша: " + cachedItem.result);
-      return cachedItem.result;
+    if (cached) {
+      console.log("Из кеша: " + cached.value);
+      return cached.value;
     }
 
     const result = func(...args);
-    cache.push({ hash, result });
+    cache.push({ hash, value: result });
 
     if (cache.length > 5) {
       cache.shift();
@@ -24,6 +24,7 @@ function cachingDecoratorNew(func) {
     return result;
   };
 }
+
 
 
 // Задача 2 — debounceDecoratorNew
